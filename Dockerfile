@@ -43,4 +43,4 @@ RUN nvm install --lts && \
 ##
 # Modify prompt (colours)
 ##
-ENV PS1="\e[1;35m${debian_chroot:+($debian_chroot)}\u@\h:\[\033[01;34m\]\w\[\033[00m\] \$ "
+RUN echo 'export PS1="\e[1;35m${debian_chroot:+($debian_chroot)}\u@\h:\[\033[01;34m\]\w\[\033[00m\] \$ "' >> $HOME/.bashrc
