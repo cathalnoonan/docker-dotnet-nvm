@@ -19,6 +19,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build image
         run: docker build -t dotnet-nvm:latest .
+      - name: Check installed tools
+        run: docker run --rm dotnet-nvm:latest /bin/bash --login -c "dotnet --version && nvm --version && node --version"
       - name: Tag image
         run: docker tag dotnet-nvm:latest ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:latest
       - name: Publish to Docker Hub
