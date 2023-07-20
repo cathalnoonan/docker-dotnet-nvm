@@ -39,3 +39,8 @@ RUN NVM_LATEST_VERSION=$(curl -s "https://api.github.com/repos/nvm-sh/nvm/releas
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v$NVM_LATEST_VERSION/install.sh | bash
 RUN nvm install --lts && \
     nvm use --lts
+
+##
+# Modify prompt (colours)
+##
+ENV PS1="\e[1;35m${debian_chroot:+($debian_chroot)}\u@\h:\[\033[01;34m\]\w\[\033[00m\] \$ "
