@@ -32,8 +32,13 @@ jobs:
           tags: ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }}
           platforms: linux/amd64,linux/arm64
           push: true
+      - name: "Build: Pull image"
+        run: docker pull ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }}
       - name: "Build: Check tools are installed"
-        run: docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c "dotnet --version && nvm --version && node --version"
+        run: |-
+          echo "dotnet version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c 'dotnet --version')"
+          echo "nvm version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c 'nvm --version')"
+          echo "node version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c 'node --version')"
 
       - name: "Latest: Build and Push Image"
         if: github.ref == 'refs/heads/main'
