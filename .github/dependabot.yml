@@ -1,0 +1,18 @@
+version: 2
+
+updates:
+  - package-ecosystem: "docker"
+    commit-message:
+      prefix: "[docker] "
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
+
+  - package-ecosystem: "github-actions"
+    commit-message:
+      prefix: "[github-actions] "
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "main"
