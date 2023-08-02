@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0.412
+FROM mcr.microsoft.com/dotnet/sdk:7.0.306
 USER root
 WORKDIR /code
 SHELL ["/bin/bash", "--login", "-c"]
