@@ -42,3 +42,9 @@ jobs:
           tags: ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:latest
           platforms: linux/amd64,linux/arm64
           push: true
+      - name: "Latest: Update Dockerhub description"
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm
