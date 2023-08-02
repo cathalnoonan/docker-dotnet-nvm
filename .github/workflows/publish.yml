@@ -1,0 +1,44 @@
+name: Publish
+
+on:
+  push:
+
+jobs:
+  publish_to_dockerhub:
+    name: Publish to DockerHub
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Setup: Check out the repo"
+        uses: actions/checkout@v3
+      - name: "Setup: Get the branch name for tagging purposes"
+        run: |-
+          GIT_BRANCH_NAME=$(echo '${{ github.ref_name }}' | sed -e 's|/|-|g')
+          echo "GIT_BRANCH_NAME=$GIT_BRANCH_NAME" >> $GITHUB_ENV
+      - name: "Setup: Setup QEMU"
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: "arm64,arm"
+      - name: "Setup: Setup Docker Buildx"
+        uses: docker/setup-buildx-action@v2
+      - name: "Setup: Log in to Docker Hub"
+        uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: "Build: Build and Push Image"
+        uses: docker/build-push-action@v3
+        with:
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }}
+          platforms: linux/amd64,linux/arm64
+          push: true
+      - name: "Build: Check tools are installed"
+        run: docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c "dotnet --version && nvm --version && node --version"
+
+      - name: "Latest: Build and Push Image"
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v3
+        with:
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:latest
+          platforms: linux/amd64,linux/arm64
+          push: true
