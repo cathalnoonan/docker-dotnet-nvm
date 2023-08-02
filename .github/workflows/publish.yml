@@ -43,6 +43,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
       - name: "Latest: Update Dockerhub description"
+        if: github.ref == 'refs/heads/main'
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
