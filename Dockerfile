@@ -12,8 +12,10 @@ RUN apt-get -y update && apt-get -y upgrade
 # Install general dependencies
 ##
 RUN apt-get install -y \
+    ca-certificates \
     curl \
     git \
+    gnupg \
     sudo \
     unzip \
     && echo;
@@ -39,6 +41,27 @@ RUN NVM_LATEST_VERSION=$(curl -s "https://api.github.com/repos/nvm-sh/nvm/releas
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v$NVM_LATEST_VERSION/install.sh | bash
 RUN nvm install --lts && \
     nvm use --lts
+
+##
+# Setup docker
+# Note: dotnet/sdk images are based on Debian
+# See: https://docs.docker.com/engine/install/debian/
+##
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    chmod a+r /etc/apt/keyrings/docker.gpg && \
+    echo \
+        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get -y update && \
+    apt-get install -y \
+        containerd.io \
+        docker-buildx-plugin \
+        docker-ce \
+        docker-ce-cli \
+        docker-compose-plugin \
+        && echo;
 
 ##
 # Modify prompt (colours)

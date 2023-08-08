@@ -39,6 +39,8 @@ jobs:
           echo "dotnet version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c 'dotnet --version')"
           echo "nvm version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c 'nvm --version')"
           echo "node version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }} /bin/bash --login -c 'node --version')"
+          echo "docker version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }})/dotnet-nvm:${{ env.GIT_BRANCH_NAME }}/bin/bash --login -c 'docker --version'"
+          echo "docker compose version: $(docker run --rm ${{ vars.DOCKERHUB_USERNAME }})/dotnet-nvm:${{ env.GIT_BRANCH_NAME }}/bin/bash --login -c 'docker compose version'"
 
       - name: "Latest: Build and Push Image"
         if: github.ref == 'refs/heads/main'
