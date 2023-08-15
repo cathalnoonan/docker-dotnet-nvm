@@ -17,6 +17,7 @@ RUN apt-get install -y \
     curl \
     git \
     gnupg \
+    nano \
     sudo \
     unzip \
     && echo;
@@ -63,6 +64,11 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
         docker-ce-cli \
         docker-compose-plugin \
         && echo;
+
+##
+# Setup nano
+##
+RUN curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
 ##
 # Modify prompt (colours)
