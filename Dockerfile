@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0.413
 USER root
+ENV HOME /root
 WORKDIR /code
 SHELL ["/bin/bash", "--login", "-c"]
 
@@ -31,8 +32,8 @@ ENV DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 ##
 # Prepare dotnet tools
 ##
-RUN mkdir -p $HOME/.dotnet/tools
-ENV PATH=$PATH:$HOME/.dotnet/tools
+RUN mkdir -p ${HOME}/.dotnet/tools
+ENV PATH=$PATH:${HOME}/.dotnet/tools
 
 ##
 # Setup nvm and node
