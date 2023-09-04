@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Setup: Check out the repo"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: "Setup: Get the branch name for tagging purposes"
         run: |-
           GIT_BRANCH_NAME=$(echo '${{ github.ref_name }}' | sed -e 's|/|-|g')
