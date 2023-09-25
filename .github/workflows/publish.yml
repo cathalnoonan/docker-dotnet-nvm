@@ -15,7 +15,7 @@ jobs:
           GIT_BRANCH_NAME=$(echo '${{ github.ref_name }}' | sed -e 's|/|-|g')
           echo "GIT_BRANCH_NAME=$GIT_BRANCH_NAME" >> $GITHUB_ENV
       - name: "Setup: Setup QEMU"
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: "arm64,arm"
       - name: "Setup: Setup Docker Buildx"
