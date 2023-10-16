@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0.414
+FROM mcr.microsoft.com/dotnet/sdk:6.0.415
 USER root
 ENV HOME /root
 WORKDIR /code
