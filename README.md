@@ -1,3 +1,7 @@
+> This repository is archived. If you would like to continue using the image, build it rather than pulling from Dockerhub.
+
+---
+
 # Docker - Dotnet and NVM
 
 [![Publish](https://github.com/cathalnoonan/docker-dotnet-nvm/actions/workflows/publish.yml/badge.svg)](https://github.com/cathalnoonan/docker-dotnet-nvm/actions/workflows/publish.yml)
