@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: "Build: Build and Push Image"
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           tags: ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:${{ env.GIT_BRANCH_NAME }}
           platforms: linux/amd64,linux/arm64
@@ -44,7 +44,7 @@ jobs:
 
       - name: "Latest: Build and Push Image"
         if: github.ref == 'refs/heads/main'
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           tags: ${{ vars.DOCKERHUB_USERNAME }}/dotnet-nvm:latest
           platforms: linux/amd64,linux/arm64
