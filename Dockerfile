@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0.415
 USER root
-ENV HOME /root
+ENV HOME=/root
 WORKDIR /code
 SHELL ["/bin/bash", "--login", "-c"]
 
